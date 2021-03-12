@@ -26,7 +26,7 @@ class DailyActivity extends StatelessWidget {
             controller: _dateController,
             decoration: InputDecoration(
 
-                prefixIcon: Icon(Icons.money, color: Colors.blue),
+                prefixIcon: Icon(Icons.date_range, color: Colors.blue),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(10.0)),
                   borderSide: BorderSide(color: Colors.grey),
@@ -43,7 +43,7 @@ class DailyActivity extends StatelessWidget {
             controller: _attendanceController,
             decoration: InputDecoration(
 
-                prefixIcon: Icon(Icons.money, color: Colors.blue),
+                prefixIcon: Icon(Icons.fact_check, color: Colors.blue),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(10.0)),
                   borderSide: BorderSide(color: Colors.grey),
@@ -60,7 +60,7 @@ class DailyActivity extends StatelessWidget {
 
             decoration: InputDecoration(
 
-                prefixIcon: Icon(Icons.money, color: Colors.blue),
+                prefixIcon: Icon(Icons.notification_important, color: Colors.blue),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(10.0)),
                   borderSide: BorderSide(color: Colors.grey),
@@ -77,7 +77,7 @@ class DailyActivity extends StatelessWidget {
 
             decoration: InputDecoration(
 
-                prefixIcon: Icon(Icons.money, color: Colors.blue),
+                prefixIcon: Icon(Icons.comment, color: Colors.blue),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(10.0)),
                   borderSide: BorderSide(color: Colors.grey),
@@ -89,23 +89,7 @@ class DailyActivity extends StatelessWidget {
                 labelText: 'complain'
             ),
           ),
-          TextField(
-            controller: _studentidController,
 
-            decoration: InputDecoration(
-
-                prefixIcon: Icon(Icons.money, color: Colors.blue),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                  borderSide: BorderSide(color: Colors.grey),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                  borderSide: BorderSide(color: Colors.grey),
-                ),
-                labelText: 'studentid'
-            ),
-          ),
           RaisedButton(onPressed: (){
             if(_noticeController.text==""){
               _noticeController.text="-";
