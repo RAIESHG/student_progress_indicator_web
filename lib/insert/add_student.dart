@@ -1,16 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:student_progress_indicator_web/databaseandmodels/database.dart';
+import 'package:student_progress_indicator_web/reuseable_codes/textfield.dart';
 
-class AddStudent extends StatelessWidget {
+class AddStudent extends StatefulWidget {
+  @override
+  _AddStudentState createState() => _AddStudentState();
+}
+
+class _AddStudentState extends State<AddStudent> {
   @override
   final TextEditingController _studentnameController = TextEditingController();
+
+  Color nameColor = Colors.grey;
+
   final TextEditingController _classController = TextEditingController();
+
+  Color classColor = Colors.grey;
+
   final TextEditingController _sectionController = TextEditingController();
+
+  Color sectionColor = Colors.grey;
+
   final TextEditingController _emailController = TextEditingController();
+
+  Color emailColor = Colors.grey;
+
   final TextEditingController _phonenumberController = TextEditingController();
+
+  Color phonenumberColor = Colors.grey;
+
   final TextEditingController _passwordController = TextEditingController();
 
+  Color passwordColor = Colors.grey;
+
   Database db = new Database();
+  TextFieldDecoration tf = new TextFieldDecoration();
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Center(child: Text("Add Student")),),
@@ -20,113 +45,56 @@ class AddStudent extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
+            new TextFieldDecoration( controller: _studentnameController, text: 'studentName', borderColor: nameColor, icon: Icons.person_outline_sharp),
+            new TextFieldDecoration( controller: _classController, text: 'Class', borderColor: classColor, icon: Icons.school),
+            new TextFieldDecoration( controller: _sectionController, text: 'section', borderColor: sectionColor, icon: Icons.people),
+            new TextFieldDecoration( controller: _emailController, text: 'email', borderColor: emailColor, icon: Icons.email),
+            new TextFieldDecoration( controller: _phonenumberController, text: 'phonenumber', borderColor: phonenumberColor, icon: Icons.phone_android_sharp),
+            new TextFieldDecoration( controller: _passwordController, text: 'password', borderColor: passwordColor, icon: Icons.vpn_key_sharp),
 
-            TextField(
-              controller: _studentnameController,
 
-              decoration: InputDecoration(
 
-                  prefixIcon: Icon(Icons.person_outline_sharp, color: Colors.blue),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    borderSide: BorderSide(color: Colors.grey),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    borderSide: BorderSide(color: Colors.grey),
-                  ),
-                  labelText: 'studentName'
-              ),
-            ),
-            TextField(
-              controller: _classController,
+            ElevatedButton(onPressed: (){
+              if(_studentnameController.text=="" || _classController.text=="" || _sectionController.text=="" || _emailController.text=="" || _phonenumberController.text=="" || _passwordController.text=="" ){
+              if(_studentnameController.text==""){
+                nameColor=Colors.red;
+              }
 
-              decoration: InputDecoration(
+              if(_classController.text==""){
 
-                  prefixIcon: Icon(Icons.school, color: Colors.blue),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    borderSide: BorderSide(color: Colors.grey),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    borderSide: BorderSide(color: Colors.grey),
-                  ),
-                  labelText: 'Class'
-              ),
-            ),
-            TextField(
-              controller: _sectionController,
 
-              decoration: InputDecoration(
+                  classColor=Colors.red;
 
-                  prefixIcon: Icon(Icons.people, color: Colors.blue),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    borderSide: BorderSide(color: Colors.grey),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    borderSide: BorderSide(color: Colors.grey),
-                  ),
-                  labelText: 'section'
-              ),
-            ),
-            TextField(
-              controller: _emailController,
+              }
+            if(_sectionController.text==""){
 
-              decoration: InputDecoration(
+                  sectionColor=Colors.red;
 
-                  prefixIcon: Icon(Icons.email, color: Colors.blue),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    borderSide: BorderSide(color: Colors.grey),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    borderSide: BorderSide(color: Colors.grey),
-                  ),
-                  labelText: 'email'
-              ),
-            ),
-            TextField(
-              controller: _phonenumberController,
+              }
+              if(_emailController.text==""){
 
-              decoration: InputDecoration(
+                  emailColor=Colors.red;
 
-                  prefixIcon: Icon(Icons.phone_android_sharp, color: Colors.blue),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    borderSide: BorderSide(color: Colors.grey),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    borderSide: BorderSide(color: Colors.grey),
-                  ),
-                  labelText: 'phonenumber'
-              ),
-            ),
-            TextField(
-              controller: _passwordController,
+              }
+            if(_phonenumberController.text==""){
 
-              decoration: InputDecoration(
+                  phonenumberColor=Colors.red;
 
-                  prefixIcon: Icon(Icons.vpn_key_sharp, color: Colors.blue),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    borderSide: BorderSide(color: Colors.grey),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    borderSide: BorderSide(color: Colors.grey),
-                  ),
-                  labelText: 'password'
-              ),
-            ),
-            RaisedButton(onPressed: (){
+              }
+             if(_passwordController.text==""){
 
-              db.addStudent(_studentnameController.text,_classController.text,_sectionController.text,_emailController.text,_phonenumberController.text,_passwordController.text);
-            },child: Text("Add"),),
+                  passwordColor=Colors.red;
+
+              }}
+
+              else {
+                db.addStudent(
+                    _studentnameController.text, _classController.text,
+                    _sectionController.text, _emailController.text,
+                    _phonenumberController.text, _passwordController.text);
+              }  setState(() {
+
+              });},child: Text("Add"),),
           ],
 
 
@@ -136,4 +104,6 @@ class AddStudent extends StatelessWidget {
       ),
     );
   }
+
+
 }

@@ -1,17 +1,40 @@
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:student_progress_indicator_web/databaseandmodels/database.dart';
-class DailyActivity extends StatelessWidget {
+import 'package:student_progress_indicator_web/reuseable_codes/textfield.dart';
+class DailyActivity extends StatefulWidget {
   final String studentid;
+
+   DailyActivity({Key key, this.studentid}) : super(key: key);
+
+  @override
+  _DailyActivityState createState() => _DailyActivityState();
+}
+
+class _DailyActivityState extends State<DailyActivity> {
   @override
   final TextEditingController _dateController = TextEditingController();
-  final TextEditingController _attendanceController = TextEditingController();
+
+  Color dateColor = Colors.grey;
+
+
+
+  Color attendanceColor = Colors.red;
+
   final TextEditingController _noticeController = TextEditingController();
+
+  Color noticeColor = Colors.grey;
+
   final TextEditingController _complainController = TextEditingController();
+
+  Color complainColor = Colors.grey;
+
   final TextEditingController _studentidController = TextEditingController();
+  List<String> attendance=["present","absent"];
+  String selectedattendance="";
 
   Database db = new Database();
 
-   DailyActivity({Key key, this.studentid}) : super(key: key);
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Center(child: Text("Add Daily Activity")),),
@@ -22,75 +45,45 @@ class DailyActivity extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
 
           children: [
-          TextField(
-            controller: _dateController,
-            decoration: InputDecoration(
+            new TextFieldDecoration( controller: _dateController, text: 'date', borderColor: dateColor, icon: Icons.date_range),
 
-                prefixIcon: Icon(Icons.date_range, color: Colors.blue),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                  borderSide: BorderSide(color: Colors.grey),
-                ),
+
+            DropdownSearch<String>(
+              searchBoxDecoration: InputDecoration(enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                borderSide: BorderSide(color: attendanceColor),
+              ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                  borderSide: BorderSide(color: Colors.grey),
+                  borderSide: BorderSide(color: attendanceColor),
                 ),
-                labelText: 'date'
-                    ''
-            ),
-          ),
-          TextField(
-            controller: _attendanceController,
-            decoration: InputDecoration(
+              ),
+                label: "Attendance",
+                mode: Mode.MENU,
+                showSelectedItem: true,
+                items: attendance,
 
-                prefixIcon: Icon(Icons.fact_check, color: Colors.blue),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                  borderSide: BorderSide(color: Colors.grey),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                  borderSide: BorderSide(color: Colors.grey),
-                ),
-                labelText: 'attendance'
-            ),
-          ),
-          TextField(
-            controller: _noticeController,
+                validator: (val) =>
+                val.isEmpty ? "Please  select the attendance " : null,
 
-            decoration: InputDecoration(
+                onChanged: (val){
+                  selectedattendance = val;
+                },
+                popupBarrierColor: Colors.blue.withOpacity(0.3),
+                selectedItem: selectedattendance),
 
-                prefixIcon: Icon(Icons.notification_important, color: Colors.blue),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                  borderSide: BorderSide(color: Colors.grey),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                  borderSide: BorderSide(color: Colors.grey),
-                ),
-                labelText: 'notice'
-            ),
-          ),
-          TextField(
-            controller: _complainController,
+            new TextFieldDecoration( controller: _noticeController, text: 'notice', borderColor: noticeColor, icon: Icons.notification_important),
 
-            decoration: InputDecoration(
 
-                prefixIcon: Icon(Icons.comment, color: Colors.blue),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                  borderSide: BorderSide(color: Colors.grey),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                  borderSide: BorderSide(color: Colors.grey),
-                ),
-                labelText: 'complain'
-            ),
-          ),
+            new TextFieldDecoration( controller: _complainController, text: 'complain', borderColor: complainColor, icon: Icons.comment),
 
-          RaisedButton(onPressed: (){
+
+
+          ElevatedButton(onPressed: (){
+            print(selectedattendance+"aaaa");
+
+
+
             if(_noticeController.text==""){
               _noticeController.text="-";
             }
@@ -98,9 +91,20 @@ class DailyActivity extends StatelessWidget {
               _complainController.text="-";
 
             }
-            if(_dateController.text!="" ||  _attendanceController.text!=""){
-            db.addactivity(_dateController.text, _attendanceController.text, _noticeController.text,_complainController.text,studentid);}
+            if(_dateController.text!="" ||  selectedattendance!=""){
+            db.addactivity(_dateController.text, selectedattendance, _noticeController.text,_complainController.text,widget.studentid);}
             else{
+              if(_dateController.text==""){
+
+                setState((){
+                  dateColor=Colors.red;
+                });}
+                if(selectedattendance==null){
+                  setState((){
+                    attendanceColor=Colors.red;
+                  });
+                }
+
 
               //insert validation here
             }
