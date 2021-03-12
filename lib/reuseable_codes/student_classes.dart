@@ -14,19 +14,24 @@ final TextEditingController sectionController = TextEditingController();
 class _StudentClassState extends State<StudentClass> {
   @override
   List<String> classes = ["1", "2","3","4","5","6","7","8","9","10"];
+  List<String> section=["A","B"];
   String selectedclass="";
+  String selectedsection="";
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Center(child: Text("Select Class")),),
       floatingActionButton: FloatingActionButton(
         onPressed: (){
+          if(selectedclass=="" || selectedsection==""){
 
+          }
+          else{
 
           Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => ViewStudents(classs: selectedclass,section: sectionController.text,selectedoption: widget.selectionoption,)));
 
-        },
+        }},
         child: Text("Next"),
 
       ),
@@ -34,29 +39,14 @@ class _StudentClassState extends State<StudentClass> {
         child: Padding(
           padding: const EdgeInsets.all(30),
           child: Column(
-
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-          TextField(
-            controller:sectionController ,
-            decoration: InputDecoration(
 
-                prefixIcon: Icon(Icons.money, color: Colors.blue),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                  borderSide: BorderSide(color: Colors.grey),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                  borderSide: BorderSide(color: Colors.grey),
-                ),
-                labelText: 'Section'
-            ),
-          ),
 
           Padding(
             padding: EdgeInsets.fromLTRB(20,0,20,0),
             child: DropdownSearch<String>(
-                label: "Shift",
+                label: "Class",
                 mode: Mode.MENU,
                 showSelectedItem: true,
                 items: classes,
@@ -69,6 +59,23 @@ class _StudentClassState extends State<StudentClass> {
                 },
                 selectedItem: selectedclass),
           ),
+
+              Padding(
+                padding: EdgeInsets.fromLTRB(20,0,20,0),
+                child: DropdownSearch<String>(
+                    label: "Section",
+                    mode: Mode.MENU,
+                    showSelectedItem: true,
+                    items: section,
+
+                    validator: (val) =>
+                    val.isEmpty ? "Please  select the Time " : null,
+
+                    onChanged: (val){
+                      selectedsection = val;
+                    },
+                    selectedItem: selectedsection),
+              ),
 
 
 

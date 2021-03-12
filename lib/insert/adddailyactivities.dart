@@ -107,7 +107,19 @@ class DailyActivity extends StatelessWidget {
             ),
           ),
           RaisedButton(onPressed: (){
-            db.addactivity(_dateController.text, _attendanceController.text, _noticeController.text,_complainController.text,studentid);
+            if(_noticeController.text==""){
+              _noticeController.text="-";
+            }
+            if(_complainController.text==""){
+              _complainController.text="-";
+
+            }
+            if(_dateController.text!="" ||  _attendanceController.text!=""){
+            db.addactivity(_dateController.text, _attendanceController.text, _noticeController.text,_complainController.text,studentid);}
+            else{
+
+              //insert validation here
+            }
           },child: Text("Update"),),
         ],
         ),

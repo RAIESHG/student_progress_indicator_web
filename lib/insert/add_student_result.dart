@@ -27,7 +27,7 @@ class AddStudentResult extends StatelessWidget {
               controller: _dateController,
 
               decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.money, color: Colors.blue),
+                  prefixIcon: Icon(Icons.date_range_outlined, color: Colors.blue),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
                     borderSide: BorderSide(color: Colors.grey),
@@ -43,7 +43,7 @@ class AddStudentResult extends StatelessWidget {
               controller: _subjectController,
 
               decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.money, color: Colors.blue),
+                  prefixIcon: Icon(Icons.book, color: Colors.blue),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
                     borderSide: BorderSide(color: Colors.grey),
@@ -59,7 +59,7 @@ class AddStudentResult extends StatelessWidget {
               controller: _gradesController,
 
               decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.money, color: Colors.blue),
+                  prefixIcon: Icon(Icons.grade, color: Colors.blue),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
                     borderSide: BorderSide(color: Colors.grey),

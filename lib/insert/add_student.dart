@@ -26,7 +26,7 @@ class AddStudent extends StatelessWidget {
 
               decoration: InputDecoration(
 
-                  prefixIcon: Icon(Icons.money, color: Colors.blue),
+                  prefixIcon: Icon(Icons.person_outline_sharp, color: Colors.blue),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
                     borderSide: BorderSide(color: Colors.grey),
@@ -43,7 +43,7 @@ class AddStudent extends StatelessWidget {
 
               decoration: InputDecoration(
 
-                  prefixIcon: Icon(Icons.money, color: Colors.blue),
+                  prefixIcon: Icon(Icons.school, color: Colors.blue),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
                     borderSide: BorderSide(color: Colors.grey),
@@ -60,7 +60,7 @@ class AddStudent extends StatelessWidget {
 
               decoration: InputDecoration(
 
-                  prefixIcon: Icon(Icons.money, color: Colors.blue),
+                  prefixIcon: Icon(Icons.people, color: Colors.blue),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
                     borderSide: BorderSide(color: Colors.grey),
@@ -77,7 +77,7 @@ class AddStudent extends StatelessWidget {
 
               decoration: InputDecoration(
 
-                  prefixIcon: Icon(Icons.money, color: Colors.blue),
+                  prefixIcon: Icon(Icons.email, color: Colors.blue),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
                     borderSide: BorderSide(color: Colors.grey),
@@ -94,7 +94,7 @@ class AddStudent extends StatelessWidget {
 
               decoration: InputDecoration(
 
-                  prefixIcon: Icon(Icons.money, color: Colors.blue),
+                  prefixIcon: Icon(Icons.phone_android_sharp, color: Colors.blue),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
                     borderSide: BorderSide(color: Colors.grey),
@@ -111,7 +111,7 @@ class AddStudent extends StatelessWidget {
 
               decoration: InputDecoration(
 
-                  prefixIcon: Icon(Icons.money, color: Colors.blue),
+                  prefixIcon: Icon(Icons.vpn_key_sharp, color: Colors.blue),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
                     borderSide: BorderSide(color: Colors.grey),

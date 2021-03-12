@@ -19,7 +19,7 @@ class AddSubject extends StatelessWidget {
             TextField(
               controller: _subjectnameController,
               decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.money, color: Colors.blue),
+                  prefixIcon: Icon(Icons.book, color: Colors.blue),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
                     borderSide: BorderSide(color: Colors.grey),

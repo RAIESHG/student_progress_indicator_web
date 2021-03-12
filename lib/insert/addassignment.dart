@@ -23,7 +23,7 @@ class AddAssignment extends StatelessWidget {
             TextField(
               controller: _assignmentController,
               decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.money, color: Colors.blue),
+                  prefixIcon: Icon(Icons.assignment, color: Colors.blue),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
                     borderSide: BorderSide(color: Colors.grey),
@@ -38,7 +38,7 @@ class AddAssignment extends StatelessWidget {
             TextField(
               controller: _assigndateController,
               decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.money, color: Colors.blue),
+                  prefixIcon: Icon(Icons.date_range, color: Colors.blue),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
                     borderSide: BorderSide(color: Colors.grey),
@@ -54,7 +54,7 @@ class AddAssignment extends StatelessWidget {
               controller: _duedateController,
 
               decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.money, color: Colors.blue),
+                  prefixIcon: Icon(Icons.date_range_outlined, color: Colors.red),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
                     borderSide: BorderSide(color: Colors.grey),
@@ -70,7 +70,7 @@ class AddAssignment extends StatelessWidget {
               controller: _subjectController,
 
               decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.money, color: Colors.blue),
+                  prefixIcon: Icon(Icons.book_outlined, color: Colors.blue),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
                     borderSide: BorderSide(color: Colors.grey),
@@ -86,7 +86,7 @@ class AddAssignment extends StatelessWidget {
               controller: _classController,
 
               decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.money, color: Colors.blue),
+                  prefixIcon: Icon(Icons.school, color: Colors.blue),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
                     borderSide: BorderSide(color: Colors.grey),
@@ -102,7 +102,7 @@ class AddAssignment extends StatelessWidget {
               controller: _sectionController,
 
               decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.money, color: Colors.blue),
+                  prefixIcon: Icon(Icons.people, color: Colors.blue),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
                     borderSide: BorderSide(color: Colors.grey),
@@ -114,8 +114,12 @@ class AddAssignment extends StatelessWidget {
                   labelText: 'Section'
               ),
             ),
-            RaisedButton(onPressed: (){
-              db.addassignment(_assignmentController.text, _assigndateController.text, _duedateController.text,_subjectController.text,_classController.text,_sectionController.text);
+            ElevatedButton(onPressed: (){
+              if(_assignmentController.text!="" || _assigndateController.text!="" ||  _duedateController.text!="" || _subjectController.text!="" || _classController.text!="" || _sectionController.text!=""){
+              db.addassignment(_assignmentController.text, _assigndateController.text, _duedateController.text,_subjectController.text,_classController.text,_sectionController.text);}
+              else{
+                //insert validation here
+              }
             },child: Text("Update"),),
           ],
 
