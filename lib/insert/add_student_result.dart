@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:student_progress_indicator_web/dashboard.dart';
 import 'package:student_progress_indicator_web/databaseandmodels/database.dart';
+import 'package:student_progress_indicator_web/reuseable_codes/message_box.dart';
 import 'package:student_progress_indicator_web/reuseable_codes/textfield.dart';
 class AddStudentResult extends StatefulWidget {
   final String studentid;
@@ -26,6 +28,7 @@ class _AddStudentResultState extends State<AddStudentResult> {
   Color dateColor = Colors.grey;
 
   Database db = new Database();
+  MessageBox mb = new MessageBox();
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,27 +40,55 @@ class _AddStudentResultState extends State<AddStudentResult> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
 
           children: [
-            new TextFieldDecoration( controller: _dateController, text: 'Result Date', borderColor: gradeColor, icon: Icons.date_range_outlined),
+            TextField(
+              onTap: () async {
+                db.getDate(_dateController, context);
+              },
+              controller: _dateController,
+              decoration: InputDecoration(
+                  prefixIcon: Icon(Icons.date_range, color: dateColor),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                    borderSide: BorderSide(color:dateColor),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                    borderSide: BorderSide(color: dateColor),
+                  ),
+                  labelText: 'Result date'
+              ),),
             new TextFieldDecoration( controller: _subjectController, text: 'Subject', borderColor: subjectColor, icon: Icons.book),
          new TextFieldDecoration( controller: _gradesController, text: 'Grade', borderColor: gradeColor, icon: Icons.grade),
 
 
 
-            RaisedButton(onPressed: (){
+            ElevatedButton(onPressed: (){
               if(_gradesController.text=="" || _subjectController.text=="" || _dateController.text==""){
                 if(_gradesController.text==""){
                   gradeColor=Colors.red;
+                  mb.Display(context, "Error", "Grades Required", Colors.red);
 
                 }
                 if(_subjectController.text==""){
                   subjectColor=Colors.red;
+                  mb.Display(context, "Error", "Subject Required", Colors.red);
                 }
                 if(_dateController.text==""){
                   dateColor=Colors.red;
-                }
+                  mb.Display(context, "Error", "Date Required", Colors.red);
+                }    setState(() {
+
+                });
               }
               else{
-              db.addStudentResult( _gradesController.text,_subjectController.text,widget.studentid,_dateController.text);}
+              db.addStudentResult( _gradesController.text,_subjectController.text,widget.studentid,_dateController.text);
+
+              Navigator.pop(context);
+              mb.Display(context, "Success", "Result Added", Colors.green);
+
+
+
+              }
               setState((){});
             },child: Text("Update"),),
           ],

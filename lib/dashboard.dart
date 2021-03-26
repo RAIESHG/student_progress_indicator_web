@@ -41,7 +41,7 @@ class _DashboardState extends State<Dashboard> {
                 children: [
                   ButtonRow(context,"Add Daily Activity","Add Student",StudentClass(selectionoption: "activity",),AddStudent()),
                   ButtonRow(context, "Add Assignment", "Add Subject",AddAssignment(),AddSubject()),
-                  ButtonRow(context, "Add Student Result", "-",StudentClass(),Container()),],
+                  ButtonRow(context, "Add Student Result", "Edit/Delete",StudentClass(selectionoption:"result"),StudentClass(selectionoption:"edit")),],
               ),
             ),
           ],
