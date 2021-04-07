@@ -8,6 +8,10 @@ import 'dart:convert';
 class Database {
 
   Future<int> addactivity(String date, String attendance,String notice,String complain,String studentid) async {
+    var status;
+
+    try{
+
     var res = await http.post(
         "http://$IP/activity",
         body: {
@@ -17,10 +21,20 @@ class Database {
           "complain":complain,
           "studentid":studentid,
         });
-    return res.statusCode;
+    print("hi");
+    status=res.statusCode;
+    print(status);
+    }
+        catch(e){
+      print(e);
+      status = 404;
+        }
+    return status;
   }
 
   Future<int> addStudent(String studentname,String clas,String section,String email,String phonenumber,String password ) async {
+    var status;
+    try{
     var res = await http.post(
         "http://$IP/addstudent",
         body: {
@@ -31,9 +45,17 @@ class Database {
           "phonenumber":phonenumber,
           "password":password,}
     );
-    return res.statusCode;
+    status=res.statusCode;}
+    catch(e){
+      status=404;
+    }
+
+    return status;
   }
+
   Future<int> updateStudent(String studentname,String clas,String section,String email,String phonenumber,String id ) async {
+    var status;
+    try{
     var res = await http.post(
         "http://$IP/updatestudent",
         body: {
@@ -43,43 +65,62 @@ class Database {
           "email":email,
           "phonenumber":phonenumber,
           "studentid":id,}
-    );
-    return res.statusCode;
+    );status=res.statusCode;}
+    catch(e){
+      status=404;
+    }
+    return status;
   }
   Future<int> deleteStudent(String id) async {
+    var status;
+    try{
     var res = await http.get(
         "http://$IP/deletestudent?studentid=$id",
-
     );
-    return res.statusCode;
+    status=res.statusCode;
+    }catch(e){
+
+      status=404;
+    }
+    return status;
   }
 
   Future<int> addassignment(String assignment, String assigndate,String duedate,String subject,String _class,String section) async {
+    var status;
+    try{
     var res = await http.post(
         "http://$IP/addassignment",
         body: {
           "assignment":assignment,
           "assigndate":assigndate,
           "duedate":duedate,
-          "subject":subject,
+          "subjectname":subject,
           "_class":_class,
           "section":section,
+
         }
-    );
-    return res.statusCode;
+    );status=res.statusCode;
+    }catch(e){
+      status=404;
+    }
+    return status;
   }
 
   Future<int> addSubject(String subject) async {
+    var status;
+    try{
     var res = await http.post(
         "http://$IP/addsubject",
         body: {
           "subjectname":subject,
         }
-    );
-    return res.statusCode;
+    );status=res.statusCode;}catch(e){status=404;}
+    return status;
   }
 
   Future<int> addStudentResult(String grade,String subject,String studentid,String date) async {
+    var status;
+    try{
     var res = await http.post(
         "http://$IP/addresult",
         body: {
@@ -88,10 +129,11 @@ class Database {
           "studentid":studentid,
           "date":date,
         }
-    );
-    return res.statusCode;
+    );status=res.statusCode;}catch(e){status=404;}
+    return status;
   }
   Future<int> addresult( String terminal,String date) async {
+
     var res = await http.post(
         "http://$IP/addassignment",
         body: {

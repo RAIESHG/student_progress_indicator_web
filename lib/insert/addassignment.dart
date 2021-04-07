@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:student_progress_indicator_web/dashboard.dart';
 import 'package:student_progress_indicator_web/databaseandmodels/database.dart';
 import 'package:student_progress_indicator_web/reuseable_codes/message_box.dart';
@@ -13,27 +14,27 @@ class _AddAssignmentState extends State<AddAssignment> {
   @override
   final TextEditingController _assignmentController = TextEditingController();
 
-  Color assignmentColor = Colors.grey;
+  Color assignmentColor = Colors.blue.withOpacity(0.7);
 
   final TextEditingController _assigndateController = TextEditingController();
 
-  Color assigndateColor = Colors.grey;
+  Color assigndateColor = Colors.blue.withOpacity(0.7);
 
   final TextEditingController _duedateController = TextEditingController();
 
-  Color duedateColor = Colors.grey;
+  Color duedateColor =Colors.blue.withOpacity(0.7);
 
   final TextEditingController _subjectController = TextEditingController();
 
-  Color subjectColor = Colors.grey;
+  Color subjectColor = Colors.blue.withOpacity(0.7);
 
   final TextEditingController _classController = TextEditingController();
 
-  Color classColor = Colors.grey;
+  Color classColor = Colors.blue.withOpacity(0.7);
 
   final TextEditingController _sectionController = TextEditingController();
 
-  Color sectionColor = Colors.grey;
+  Color sectionColor =Colors.blue.withOpacity(0.7);
 
   Database db = new Database();
   MessageBox mb = new MessageBox();
@@ -87,7 +88,23 @@ class _AddAssignmentState extends State<AddAssignment> {
               ),),
 
             new TextFieldDecoration( controller: _subjectController, text: 'Subject', borderColor: subjectColor, icon: Icons.book_outlined),
-            new TextFieldDecoration( controller: _classController, text: 'Class', borderColor: classColor, icon: Icons.school),
+          TextField(
+            inputFormatters: [WhitelistingTextInputFormatter(RegExp(r"^\d+\/?\d{0,2}"))],
+            controller:_classController,
+            decoration: InputDecoration(
+                prefixIcon: Icon(Icons.school, color: classColor),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                  borderSide: BorderSide(color: classColor),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                  borderSide: BorderSide(color: classColor),
+                ),
+                labelText: 'Class'
+            ),),
+
+
             new TextFieldDecoration( controller: _sectionController, text: 'Section', borderColor: sectionColor, icon: Icons.people),
 
             ElevatedButton(onPressed: (){
@@ -123,14 +140,26 @@ class _AddAssignmentState extends State<AddAssignment> {
               }    setState(() {
 
                 });}
-              else{
-               db.addassignment(_assignmentController.text, _assigndateController.text, _duedateController.text,_subjectController.text,_classController.text,_sectionController.text);
+              else {
+                void validation() async {
+                  var res = await db.addassignment(
+                      _assignmentController.text, _assigndateController.text,
+                      _duedateController.text, _subjectController.text,
+                      _classController.text, _sectionController.text);
 
-               Navigator.pop(context);
-              mb.Display(context, "Success", "Assignment Added", Colors.green);}
-             }
 
-            ,child: Text("Update"),),
+
+                  if(res==201){
+                    Navigator.pop(context);
+                    mb.Display(context, "Success", "Assignment Added", Colors.green);}
+
+                  else{
+                    mb.Display(context, "Error Occured", "Please Check Your Internet Connection", Colors.red);
+                  }
+                } validation();
+              }}
+
+            ,child: Text("Add Assignment"),), SizedBox(height: MediaQuery.of(context).size.height*0.2,),
           ],
 
 

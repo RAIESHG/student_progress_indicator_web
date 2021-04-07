@@ -21,6 +21,7 @@ class _StudentClassState extends State<StudentClass> {
   MessageBox mb = new MessageBox();
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(title: Center(child: Text("Select Class")),),
       floatingActionButton: FloatingActionButton(
         onPressed: (){
@@ -28,9 +29,10 @@ class _StudentClassState extends State<StudentClass> {
             mb.Display(context, "Warning", "Please Select Both Section And Class", Colors.red);
           }
           else{
+
           Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => ViewStudents(classs: selectedclass,section: sectionController.text,selectedoption: widget.selectionoption,)));
+              MaterialPageRoute(builder: (context) => ViewStudents(classs: selectedclass,section: selectedsection,selectedoption: widget.selectionoption,)));
         }
           },
         child: Text("Next"),
@@ -42,6 +44,10 @@ class _StudentClassState extends State<StudentClass> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Container(
+                  height: MediaQuery.of(context).size.height*0.3,
+                  width: MediaQuery.of(context).size.width*1 ,
+                  child: Image.asset("assets/students.png")),
 
           Padding(
             padding: EdgeInsets.fromLTRB(20,0,20,0),
@@ -75,11 +81,7 @@ class _StudentClassState extends State<StudentClass> {
                     },
                     selectedItem: selectedsection),
               ),
-
-
-
-
-    ],),
+],),
         ),
       ),);
   }

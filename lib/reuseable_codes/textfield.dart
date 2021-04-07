@@ -18,6 +18,7 @@ class _TextFieldDecorationState extends State<TextFieldDecoration> {
   Widget build(BuildContext context) {
     return
       TextField(
+
         controller: widget.controller,
         decoration: InputDecoration(
             prefixIcon: Icon(widget.icon, color: widget.borderColor),

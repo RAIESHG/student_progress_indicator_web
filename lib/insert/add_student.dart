@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:student_progress_indicator_web/dashboard.dart';
 import 'package:student_progress_indicator_web/databaseandmodels/database.dart';
 import 'package:student_progress_indicator_web/reuseable_codes/message_box.dart';
@@ -12,17 +13,17 @@ class _AddStudentState extends State<AddStudent> {
   MessageBox mb = new MessageBox();
   @override
   final TextEditingController _studentnameController = TextEditingController();
-  Color nameColor = Colors.grey;
+  Color nameColor = Colors.blue.withOpacity(0.7);
   final TextEditingController _classController = TextEditingController();
-  Color classColor = Colors.grey;
+  Color classColor = Colors.blue.withOpacity(0.7);
   final TextEditingController _sectionController = TextEditingController();
-  Color sectionColor = Colors.grey;
+  Color sectionColor = Colors.blue.withOpacity(0.7);
   final TextEditingController _emailController = TextEditingController();
-  Color emailColor = Colors.grey;
+  Color emailColor = Colors.blue.withOpacity(0.7);
   final TextEditingController _phonenumberController = TextEditingController();
-  Color phonenumberColor = Colors.grey;
+  Color phonenumberColor = Colors.blue.withOpacity(0.7);
   final TextEditingController _passwordController = TextEditingController();
-  Color passwordColor = Colors.grey;
+  Color passwordColor =Colors.blue.withOpacity(0.7);
   Database db = new Database();
   TextFieldDecoration tf = new TextFieldDecoration();
 
@@ -34,16 +35,83 @@ class _AddStudentState extends State<AddStudent> {
     return Scaffold(
       appBar: AppBar(title: Center(child: Text("Add Student")),),
       body: Padding(
-        padding:EdgeInsets.fromLTRB(30, 0, 30, 0),
+        padding:EdgeInsets.fromLTRB(30, 20, 30,20),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+
           children: [
-            new TextFieldDecoration( controller: _studentnameController, text: 'studentName', borderColor: nameColor, icon: Icons.person_outline_sharp),
-            new TextFieldDecoration( controller: _classController, text: 'Class', borderColor: classColor, icon: Icons.school),
-            new TextFieldDecoration( controller: _sectionController, text: 'section', borderColor: sectionColor, icon: Icons.people),
-            new TextFieldDecoration( controller: _emailController, text: 'email', borderColor: emailColor, icon: Icons.email),
-            new TextFieldDecoration( controller: _phonenumberController, text: 'phonenumber', borderColor: phonenumberColor, icon: Icons.phone_android_sharp),
-            new TextFieldDecoration( controller: _passwordController, text: 'password', borderColor: passwordColor, icon: Icons.vpn_key_sharp),
+
+             TextFieldDecoration( controller: _studentnameController, text: 'studentName', borderColor: nameColor, icon: Icons.person_outline_sharp),
+                SizedBox(height: MediaQuery.of(context).size.height*0.03,),
+            TextField(onChanged: (value){
+              if(value.contains(RegExp('[a-zA-Z]'))){
+
+                mb.Display(context, "Warning", "Only Number Input Allowed in Class", Colors.red);
+                _classController.text="";
+              }
+
+            },
+
+              controller:_classController,
+
+              decoration: InputDecoration(
+                  prefixIcon: Icon(Icons.school, color: classColor),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                    borderSide: BorderSide(color: classColor),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                    borderSide: BorderSide(color: classColor),
+                  ),
+                  labelText: 'Class'
+              ),),
+            SizedBox(height: MediaQuery.of(context).size.height*0.03,),
+
+
+             TextFieldDecoration( controller: _sectionController, text: 'section', borderColor: sectionColor, icon: Icons.people),
+            SizedBox(height: MediaQuery.of(context).size.height*0.03,),
+             TextFieldDecoration( controller: _emailController, text: 'email', borderColor: emailColor, icon: Icons.email),
+            SizedBox(height: MediaQuery.of(context).size.height*0.03,),
+            TextField(
+              controller:_phonenumberController,
+              onChanged: (value){
+                if(value.contains(RegExp('[a-zA-Z]'))){
+
+                  mb.Display(context, "Warning", "Only Number Input Allowed in PhoneNumber", Colors.red);
+                  _phonenumberController.text="";
+                }
+
+              },
+              decoration: InputDecoration(
+                  prefixIcon: Icon(Icons.phone_android_sharp, color: phonenumberColor),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                    borderSide: BorderSide(color: phonenumberColor),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                    borderSide: BorderSide(color: phonenumberColor),
+                  ),
+                  labelText: 'Phonenumber'
+              ),),
+            SizedBox(height: MediaQuery.of(context).size.height*0.03,),
+            TextField(
+              obscureText: true,
+              controller:_passwordController,
+              decoration: InputDecoration(
+                  prefixIcon: Icon(Icons.vpn_key_sharp, color: passwordColor),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                    borderSide: BorderSide(color: passwordColor),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                    borderSide: BorderSide(color: passwordColor),
+                  ),
+                  labelText: 'password'
+              ),),
+
+            SizedBox(height: MediaQuery.of(context).size.height*0.03,),
             ElevatedButton(onPressed: (){
               if(_studentnameController.text=="" || _classController.text=="" || _sectionController.text=="" || _emailController.text=="" || _phonenumberController.text=="" || _passwordController.text=="" ){
               if(_studentnameController.text==""){
@@ -51,6 +119,7 @@ class _AddStudentState extends State<AddStudent> {
                 mb.Display(context, "Error", "Name Required!", Colors.red);
               }
               if(_classController.text==""){
+
                   classColor=Colors.red;
                   mb.Display(context, "Error", "Class Requried", Colors.red);
               }
@@ -73,14 +142,25 @@ class _AddStudentState extends State<AddStudent> {
               }    setState(() {
               });}
              else {
-                db.addStudent(
+
+               void validation() async {
+                var res =await db.addStudent(
                     _studentnameController.text, _classController.text,
                     _sectionController.text, _emailController.text,
                     _phonenumberController.text, _passwordController.text);
+
+                if(res==201){
                 Navigator.pop(context);
-                mb.Display(context, "Success", "Assignment Added", Colors.green);
-              }
-             },child: Text("Add"),),
+                mb.Display(context, "Success", "Student Added", Colors.green);}
+                else if(res==409){
+                  mb.Display(context, "Failure", "Student With Same Email Address Already Exists", Colors.red);
+
+                }
+                else{
+                  mb.Display(context, "Error Occured", "Please Check Your Internet Connection", Colors.red);
+                }
+              }validation();}
+             },child: Text("Add Student"),),
           ],
         ),
       ),

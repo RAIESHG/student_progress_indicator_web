@@ -22,15 +22,15 @@ class _EditStudentState extends State<EditStudent> {
   @override
   final TextEditingController _studentnameController = TextEditingController();
 
-  Color nameColor = Colors.grey;
+  Color nameColor = Colors.blue.withOpacity(0.7);
   final TextEditingController _classController = TextEditingController();
-  Color classColor = Colors.grey;
+  Color classColor = Colors.blue.withOpacity(0.7);
   final TextEditingController _sectionController = TextEditingController();
-  Color sectionColor = Colors.grey;
+  Color sectionColor = Colors.blue.withOpacity(0.7);
   final TextEditingController _emailController = TextEditingController();
-  Color emailColor = Colors.grey;
+  Color emailColor = Colors.blue.withOpacity(0.7);
   final TextEditingController _phonenumberController = TextEditingController();
-  Color phonenumberColor = Colors.grey;
+  Color phonenumberColor = Colors.blue.withOpacity(0.7);
 
   Database db = new Database();
   TextFieldDecoration tf = new TextFieldDecoration();
@@ -43,7 +43,7 @@ class _EditStudentState extends State<EditStudent> {
     _phonenumberController.text=widget.phonenumber;
 
         return Scaffold(
-      appBar: AppBar(title: Center(child: Text("Add Student")),),
+      appBar: AppBar(title: Center(child: Text("Edit/Delete Student")),),
 
       body: Padding(
         padding:EdgeInsets.fromLTRB(30, 0, 30, 0),
@@ -56,7 +56,7 @@ class _EditStudentState extends State<EditStudent> {
             new TextFieldDecoration( controller: _emailController, text: 'email', borderColor: emailColor, icon: Icons.email),
             new TextFieldDecoration( controller: _phonenumberController, text: 'phonenumber', borderColor: phonenumberColor, icon: Icons.phone_android_sharp),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ElevatedButton(onPressed: (){
                   if(_studentnameController.text=="" || _classController.text=="" || _sectionController.text=="" || _emailController.text=="" || _phonenumberController.text=="" ){
@@ -96,7 +96,14 @@ class _EditStudentState extends State<EditStudent> {
 
                   }
                 },child: Text("Update"),),
-                ElevatedButton(onPressed: (){
+
+                SizedBox(width: MediaQuery.of(context).size.width*0.02,),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.red, // background
+                    onPrimary: Colors.white, // foreground
+                  ),
+                  onPressed: (){
 
                   db.deleteStudent(
                       widget.studentid);
@@ -106,7 +113,7 @@ class _EditStudentState extends State<EditStudent> {
 
 
                 },child: Text("Delete"),),],
-            ),
+            ),SizedBox(height: MediaQuery.of(context).size.height*0.3,),
 
           ],
 

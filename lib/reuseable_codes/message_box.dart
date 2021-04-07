@@ -15,7 +15,6 @@ class MessageBox  {
       message: message,
       duration: Duration(seconds: 2),
       margin: EdgeInsets.all(8),
-
       blockBackgroundInteraction: true,
       dismissDirection:
       FlushbarDismissDirection.VERTICAL,

@@ -6,8 +6,9 @@ import 'package:student_progress_indicator_web/reuseable_codes/message_box.dart'
 import 'package:student_progress_indicator_web/reuseable_codes/textfield.dart';
 class DailyActivity extends StatefulWidget {
   final String studentid;
+  final String name;
 
-   DailyActivity({Key key, this.studentid}) : super(key: key);
+   DailyActivity({Key key, this.studentid, this.name}) : super(key: key);
 
   @override
   _DailyActivityState createState() => _DailyActivityState();
@@ -16,21 +17,12 @@ class DailyActivity extends StatefulWidget {
 class _DailyActivityState extends State<DailyActivity> {
   @override
   final TextEditingController _dateController = TextEditingController();
-
-  Color dateColor = Colors.grey;
-
-
-
-  Color attendanceColor = Colors.red;
-
+  Color dateColor = Colors.blue.withOpacity(0.7);
+  Color attendanceColor =Colors.blue.withOpacity(0.7);
   final TextEditingController _noticeController = TextEditingController();
-
-  Color noticeColor = Colors.grey;
-
+  Color noticeColor = Colors.blue.withOpacity(0.7);
   final TextEditingController _complainController = TextEditingController();
-
-  Color complainColor = Colors.grey;
-
+  Color complainColor = Colors.blue.withOpacity(0.7);
   final TextEditingController _studentidController = TextEditingController();
   List<String> attendance=["present","absent"];
   String selectedattendance="";
@@ -39,7 +31,7 @@ class _DailyActivityState extends State<DailyActivity> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Center(child: Text("Add Daily Activity")),),
+      appBar: AppBar(title: Center(child: Text("Add Daily Activity of ${widget.name}")),),
       body: Padding(
         padding:EdgeInsets.fromLTRB(30, 0, 30, 0),
         child: Column(
@@ -64,9 +56,18 @@ class _DailyActivityState extends State<DailyActivity> {
           ),),
 
             DropdownSearch<String>(
-              searchBoxDecoration: InputDecoration(enabledBorder: OutlineInputBorder(
+
+              searchBoxDecoration: InputDecoration(
+
+                disabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
+
+                  borderSide: BorderSide(color: attendanceColor),
+                ),
+                enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                borderSide: BorderSide(color: attendanceColor),
+
+                borderSide: BorderSide(color: Colors.blue),
               ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(10.0)),
@@ -82,7 +83,7 @@ class _DailyActivityState extends State<DailyActivity> {
                 onChanged: (val){
                   selectedattendance = val;
                 },
-                popupBarrierColor: Colors.blue.withOpacity(0.3),
+
                 selectedItem: selectedattendance),
             new TextFieldDecoration( controller: _noticeController, text: 'notice', borderColor: noticeColor, icon: Icons.notification_important),
             new TextFieldDecoration( controller: _complainController, text: 'complain', borderColor: complainColor, icon: Icons.comment),
@@ -94,19 +95,27 @@ class _DailyActivityState extends State<DailyActivity> {
             if(_complainController.text==""){
               _complainController.text="-";
             }
-            if(_dateController.text!="" ||  selectedattendance!=""){
-            db.addactivity(_dateController.text, selectedattendance, _noticeController.text,_complainController.text,widget.studentid);
+            if(_dateController.text!="" &&  selectedattendance!=""){
+              void validator() async{
 
-            Navigator.pop(context);
-           mb.Display(context, "Success", "Acitivity Added", Colors.green);
-           }
+            var res = await db.addactivity(_dateController.text, selectedattendance, _noticeController.text,_complainController.text,widget.studentid);
+            print(res);
+            if(res==201){
+              Navigator.pop(context);
+              mb.Display(context, "Success", "Activity Added", Colors.green);}
+
+            else{
+              mb.Display(context, "Error Occured", "Please Check Your Internet Connection", Colors.red);
+            }
+
+           }validator();}
             else{
               if(_dateController.text==""){
                 setState((){
                   dateColor=Colors.red;
                   mb.Display(context, "Error", "Date Required", Colors.red);
                 });}
-                if(selectedattendance==null){
+                if(selectedattendance==""){
                   setState((){
                     attendanceColor=Colors.red;
                     mb.Display(context, "Error", "Attendance Required", Colors.red);
@@ -114,7 +123,7 @@ class _DailyActivityState extends State<DailyActivity> {
                 }
              //insert validation here
             }
-          },child: Text("Update"),),
+          },child: Text("Add Activity"),),  SizedBox(height: MediaQuery.of(context).size.height*0.3,),
         ],
         ),
       ),
