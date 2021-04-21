@@ -144,7 +144,7 @@ class Database {
     return res.statusCode;
   }
   Future<List<StudentModel>> fetchstudent(String classs,String section) async {
-    var response;
+    var response;a
     int statusCode;
     var data = await http.get('http://$IP/getstudents?classs=$classs&section=$section');
     var jsonData = json.decode((data.body));
