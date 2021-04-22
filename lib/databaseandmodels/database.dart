@@ -71,6 +71,20 @@ class Database {
     }
     return status;
   }
+  Future<int> updatepassword(String password,String id) async {
+    var status;
+    try{
+      var res = await http.post(
+          "http://$IP/updatepassword",
+          body: {
+            "password":password,
+            "studentid":id}
+      );status=res.statusCode;}
+    catch(e){
+      status=404;
+    }
+    return status;
+  }
   Future<int> deleteStudent(String id) async {
     var status;
     try{

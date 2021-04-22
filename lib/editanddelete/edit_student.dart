@@ -46,6 +46,7 @@ class _EditStudentState extends State<EditStudent> {
     _sectionController.text = widget.section;
     _emailController.text = widget.email;
     _phonenumberController.text=widget.phonenumber;
+    _passwordController.text=widget.password;
 
         return Scaffold(
       appBar: AppBar(title: Center(child: Text("Edit/Delete Student")),),
@@ -123,7 +124,19 @@ class _EditStudentState extends State<EditStudent> {
                   mb.Display(context, "Success", "Student Deleted", Colors.green);
 
 
-                },child: Text("Delete"),),],
+                },child: Text("Delete"),),
+                SizedBox(width: MediaQuery.of(context).size.width*0.02,),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.blue, // background
+                    onPrimary: Colors.white, // foreground
+                  ),
+                  onPressed: (){
+                    _showMyDialog();
+
+
+
+                  },child: Text("Update Password"),),],
             ),SizedBox(height: MediaQuery.of(context).size.height*0.3,),
 
           ],
@@ -133,6 +146,50 @@ class _EditStudentState extends State<EditStudent> {
 
         ),
       ),
+    );
+  }
+  Future<void> _showMyDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Center(child: Text('Alert! ')),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('Warning This Action Will Change The Password'),
+                SizedBox(height: MediaQuery.of(context).size.height*0.02,),
+                Text('Would you like to continue?'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                TextButton(
+                  child: Text('Yes'),
+                  onPressed: () {
+                    db.updatepassword(
+                        _passwordController.text,widget.studentid);
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                    mb.Display(context, "Success", "Password Changed", Colors.green);
+                  },
+                ),
+                SizedBox(height: MediaQuery.of(context).size.width*0.05,),
+                TextButton(
+                  child: Text('No'),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+            ),
+          ],
+        );
+      },
     );
   }
 
