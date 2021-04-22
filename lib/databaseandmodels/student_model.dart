@@ -5,6 +5,7 @@ class StudentModel{
   final String classs;
   final String section;
   final String phonenumber;
+  final String password;
 
-  StudentModel({this.name,this.id,this.email, this.classs, this.section, this.phonenumber, });
+  StudentModel({this.name,this.id,this.email, this.classs, this.section, this.phonenumber,this.password});
 }

@@ -68,7 +68,7 @@ class _ViewStudentsState extends State<ViewStudents> {
 
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => EditStudent(studentid:snapshot.data[index].id,studentname: snapshot.data[index].name,classs: snapshot.data[index].classs,section: snapshot.data[index].section,email: snapshot.data[index].email,phonenumber:snapshot.data[index].phonenumber ,)),);
+                                MaterialPageRoute(builder: (context) => EditStudent(studentid:snapshot.data[index].id,studentname: snapshot.data[index].name,classs: snapshot.data[index].classs,section: snapshot.data[index].section,email: snapshot.data[index].email,phonenumber:snapshot.data[index].phonenumber ,password:snapshot.data[index].password)),);
                             }
                           },
                           child: ic.informationcard(context,information));

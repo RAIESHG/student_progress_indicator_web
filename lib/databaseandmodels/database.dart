@@ -157,7 +157,8 @@ class Database {
         email:each["email"],
         classs:each["class"],
         section:each["section"],
-        phonenumber:each["phonenumber"]
+        phonenumber:each["phonenumber"],
+        password:each["password"]
         );
       studentinfolist.add(studentobj);
     }

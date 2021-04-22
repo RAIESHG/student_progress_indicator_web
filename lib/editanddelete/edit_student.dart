@@ -12,8 +12,9 @@ class EditStudent extends StatefulWidget {
   final String section;
   final String email;
   final String phonenumber;
+  final String password;
 
-  const EditStudent({Key key,this.studentid, this.studentname, this.classs, this.section, this.email, this.phonenumber}) : super(key: key);
+  const EditStudent({Key key,this.studentid, this.studentname, this.classs, this.section, this.email, this.phonenumber,this.password}) : super(key: key);
 
   _EditStudentState createState() => _EditStudentState();
 }
@@ -31,6 +32,10 @@ class _EditStudentState extends State<EditStudent> {
   Color emailColor = Colors.blue.withOpacity(0.7);
   final TextEditingController _phonenumberController = TextEditingController();
   Color phonenumberColor = Colors.blue.withOpacity(0.7);
+  final TextEditingController _passwordController = TextEditingController();
+  Color passwordColor = Colors.blue.withOpacity(0.7);
+
+
 
   Database db = new Database();
   TextFieldDecoration tf = new TextFieldDecoration();
@@ -55,11 +60,13 @@ class _EditStudentState extends State<EditStudent> {
             new TextFieldDecoration( controller: _sectionController, text: 'section', borderColor: sectionColor, icon: Icons.people),
             new TextFieldDecoration( controller: _emailController, text: 'email', borderColor: emailColor, icon: Icons.email),
             new TextFieldDecoration( controller: _phonenumberController, text: 'phonenumber', borderColor: phonenumberColor, icon: Icons.phone_android_sharp),
+            new TextFieldDecoration( controller: _passwordController, text: 'password', borderColor: passwordColor, icon: Icons.vpn_key_sharp),
+
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ElevatedButton(onPressed: (){
-                  if(_studentnameController.text=="" || _classController.text=="" || _sectionController.text=="" || _emailController.text=="" || _phonenumberController.text=="" ){
+                  if(_studentnameController.text=="" || _classController.text=="" || _sectionController.text=="" || _emailController.text=="" || _phonenumberController.text=="" || _passwordController.text==""){
                     if(_studentnameController.text==""){
                       nameColor=Colors.red;
                       mb.Display(context, "Error", "Name Required!", Colors.red);
@@ -79,6 +86,10 @@ class _EditStudentState extends State<EditStudent> {
                     if(_phonenumberController.text==""){
                       phonenumberColor=Colors.red;
                       mb.Display(context, "Error", "PhoneNumber Required", Colors.red);
+                    }
+                    if(_passwordController.text==""){
+                      phonenumberColor=Colors.red;
+                      mb.Display(context, "Error", "Password Required", Colors.red);
                     }
                        setState(() {
 

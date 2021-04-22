@@ -140,11 +140,6 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                                             "Please Enter Your Username/Password",
                                             Colors.red);
                                       } else {
-                                        print("hi");
-
-
-
-
                                         if (username=='admin' && password=='admin') {
                                           Navigator.push(
                                             context,
