@@ -1,6 +1,6 @@
 # Student_progress_indicator_web
 
-A Flutter mobile application.
+A Flutter web application.
 
 ## Requirements:
 
